@@ -1,0 +1,6 @@
+bin/
+*.test
+*.out
+.env
+go.work
+go.work.sum
