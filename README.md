@@ -5,5 +5,6 @@ plan, change, test and merge here before they touch a repo that matters.
 
 ```sh
 go test ./...
-go run .
+go run .                     # serves GET /version on :8080 (-addr to change)
+go build -ldflags "-X main.version=1.2.3" .
 ```
