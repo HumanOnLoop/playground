@@ -4,7 +4,8 @@ name: ci
 
 on:
   push:
-    branches: [main, "run/**", "revert-*"]
+    # GitHub names revert branches revert-<pr>-<head ref>, and run heads hold a slash, which * does not match.
+    branches: [main, "run/**", "revert-**"]
 
 permissions:
   contents: read
