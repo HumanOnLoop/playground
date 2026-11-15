@@ -13,7 +13,7 @@ go build -ldflags "-X main.version=1.2.3" .  # set the version GET /version repo
 ## CI and protection
 
 - [.github/workflows/ci.yml](.github/workflows/ci.yml) is the `ci` check: gofmt -l, go vet and go test. It runs on
-  pushes to `main`, `run/**` (run and fix branches) and `revert-*`.
+  pushes to `main`, `run/**` (run and fix branches) and `revert-**` (GitHub's revert branches, which hold the run branch's slash).
 - [ruleset/main.json](ruleset/main.json) protects `main`: `ci` is required (not strict), and there are no force
   pushes or deletions. Apply it with `ruleset/apply.sh` (needs admin rights through `gh`).
 - HOTL's CI/CD adapter merges run branches through pull requests once `ci` is green, so merges also pass GitHub's
