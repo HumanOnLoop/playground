@@ -28,6 +28,7 @@ func Greeting(name string) string {
 func newHandler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/version", handleVersion)
+	mux.HandleFunc("/ping-31d29b", handlePing31d29b)
 	return mux
 }
 
