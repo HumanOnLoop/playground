@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -42,6 +43,35 @@ func TestFarewell83fd0aAnswersInLanguage(t *testing.T) {
 				t.Errorf("body = %v, want {\"text\": %q}", body, tt.want)
 			}
 		})
+	}
+}
+
+// TestFarewell83fd0a_NoLangAnswersAsEnglish checks that a request without lang gets exactly the answer
+// lang=en gets: the same status, Content-Type and body bytes.
+func TestFarewell83fd0a_NoLangAnswersAsEnglish(t *testing.T) {
+	srv := httptest.NewServer(newHandler())
+	defer srv.Close()
+	get := func(path string) (int, string, string) {
+		t.Helper()
+		resp, err := http.Get(srv.URL + path)
+		if err != nil {
+			t.Fatalf("GET %s: %v", path, err)
+		}
+		defer resp.Body.Close()
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			t.Fatalf("read %s body: %v", path, err)
+		}
+		return resp.StatusCode, resp.Header.Get("Content-Type"), string(body)
+	}
+	enStatus, enType, enBody := get("/farewell-83fd0a?lang=en")
+	status, ctype, body := get("/farewell-83fd0a")
+	if status != enStatus || ctype != enType || body != enBody {
+		t.Errorf("without lang: (%d, %q, %q), want as for lang=en (%d, %q, %q)",
+			status, ctype, body, enStatus, enType, enBody)
+	}
+	if enStatus != http.StatusOK {
+		t.Errorf("lang=en: status = %d, want %d", enStatus, http.StatusOK)
 	}
 }
 
