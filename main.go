@@ -30,6 +30,7 @@ func newHandler() http.Handler {
 	mux.HandleFunc("/version", handleVersion)
 	mux.HandleFunc("/ping-31d29b", handlePing31d29b)
 	mux.HandleFunc("/greet-9d0d00", handleGreet9d0d00)
+	mux.HandleFunc("/farewell-83fd0a", handleFarewell83fd0a)
 	return mux
 }
 
