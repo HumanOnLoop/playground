@@ -29,6 +29,7 @@ func newHandler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/version", handleVersion)
 	mux.HandleFunc("/ping-31d29b", handlePing31d29b)
+	mux.HandleFunc("/greet-9d0d00", handleGreet9d0d00)
 	return mux
 }
 
