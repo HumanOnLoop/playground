@@ -1,4 +1,5 @@
 bin/
+/playground
 *.test
 *.out
 .env
